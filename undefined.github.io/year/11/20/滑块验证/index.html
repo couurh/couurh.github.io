@@ -1,0 +1,737 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Couurh">
+  <meta name="keywords" content="">
+  <title>JS实现滑动验证码(Android) - 亦余Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"couurh.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>亦余Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://cdn.jsdelivr.net/gh/couurh/tc/Head Fig2.webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JS实现滑动验证码(Android)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-20 17:51" pubdate>
+        November 20, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS实现滑动验证码(Android)</h1>
+            
+            <div class="markdown-body">
+              <p><strong>滑块验证</strong></p>
+<hr>
+<ul>
+<li>代码</li>
+</ul>
+<div class="hljs"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> y = <span class="hljs-number">1839</span>;<span class="hljs-comment">//设置滑动按钮高度</span>
+<span class="hljs-keyword">var</span> start_x = <span class="hljs-number">170</span>;
+<span class="hljs-comment">//y=className(&quot;android.widget.Image&quot;).text(&quot;tag-bar&quot;).findOne().bounds().centerY()</span>
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment">   </span>
+<span class="hljs-comment">*</span>
+<span class="hljs-comment"> *适用版本：所有安卓版本</span>
+<span class="hljs-comment"> *适用分辨率：1080p720p1440P 及其他所有分辨率！</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment">   </span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> *防检测功能：模拟真人滑动</span>
+<span class="hljs-comment"> *通过四阶贝塞尔曲线，生成完全模仿真的滑动方式</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> */</span>
+
+   
+<span class="hljs-comment">//请求权限</span>
+<span class="hljs-keyword">if</span> (!requestScreenCapture()) &#123;
+    alert(<span class="hljs-string">&quot;请求截图权限失败！&quot;</span>);
+    exit();
+&#125;
+<span class="hljs-comment">//启动</span>
+start()
+   
+<span class="hljs-comment">/** </span>
+<span class="hljs-comment"> * 识别滑块位置</span>
+<span class="hljs-comment"> * </span>
+<span class="hljs-comment"> * 传入值img，ratio</span>
+<span class="hljs-comment"> * img为要识别的图片</span>
+<span class="hljs-comment"> * ratio为识别图片的分辨率（暂时只可选择720P1080P1440P）</span>
+<span class="hljs-comment"> * </span>
+<span class="hljs-comment"> * 返回值x</span>
+<span class="hljs-comment"> * 识别出方块位置的左端横坐标</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">discernSlidingblock</span>(<span class="hljs-params">img, ratio</span>) </span>&#123;
+    <span class="hljs-comment">//创建识别变量</span>
+    <span class="hljs-keyword">var</span> temp, temp2, x, y, num, color, p, temp3, arr1;
+    <span class="hljs-comment">//分析设备分辨率</span>
+    <span class="hljs-keyword">if</span> (ratio == <span class="hljs-number">720</span>) &#123;
+        <span class="hljs-keyword">var</span> tb = [<span class="hljs-number">348</span>, <span class="hljs-number">253</span>, <span class="hljs-number">691</span>, <span class="hljs-number">638</span>, <span class="hljs-number">81</span>]
+        log(<span class="hljs-string">&quot;您的设备分辨率为：720p&quot;</span>);
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ratio == <span class="hljs-number">1080</span>) &#123;
+        <span class="hljs-keyword">var</span> tb = [<span class="hljs-number">463</span>, <span class="hljs-number">387</span>, <span class="hljs-number">912</span>, <span class="hljs-number">831</span>, <span class="hljs-number">125</span>]
+        log(<span class="hljs-string">&quot;您的设备分辨率为：1080p&quot;</span>);
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ratio == <span class="hljs-number">1440</span>) &#123;
+        <span class="hljs-comment">// var tb = [106, 820, 1316, 1434, 125]</span>
+        <span class="hljs-keyword">var</span> tb = [<span class="hljs-number">106</span>, <span class="hljs-number">1189</span>, <span class="hljs-number">1151</span>, <span class="hljs-number">1710</span>, <span class="hljs-number">118</span>]
+        log(<span class="hljs-string">&quot;您的设备分辨率为：1440p&quot;</span>);
+    &#125; <span class="hljs-keyword">else</span> &#123;
+        log(<span class="hljs-string">&quot;当前设备分辨率不符合规范&quot;</span>);
+        <span class="hljs-keyword">return</span> -<span class="hljs-number">2</span>
+    &#125;
+    num = <span class="hljs-number">118</span> * <span class="hljs-number">4</span> - <span class="hljs-number">4</span>;
+       
+    <span class="hljs-comment">//计算滑块位置</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> k = <span class="hljs-number">80</span>; k &lt;= <span class="hljs-number">80</span>; k++) &#123;
+        temp2 = <span class="hljs-string">&quot;&quot;</span>;
+        color = <span class="hljs-string">&quot;#&quot;</span> + k + <span class="hljs-string">&quot;&quot;</span> + k + <span class="hljs-string">&quot;&quot;</span> + k + <span class="hljs-string">&quot;&quot;</span>;
+        rows = tb[<span class="hljs-number">4</span>];
+        arr2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; rows; j++)
+        &#123;
+            arr2[<span class="hljs-number">0</span> * rows + j] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>();
+            arr2[<span class="hljs-number">0</span> * rows + j] = [j + <span class="hljs-number">1</span>, <span class="hljs-number">0</span> , color];
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; rows; j++)
+        &#123;
+            arr2[<span class="hljs-number">1</span> * rows + j] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>();
+            arr2[<span class="hljs-number">1</span> * rows + j] = [rows, j + <span class="hljs-number">1</span>, color];
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; rows; j++)
+        &#123;
+            arr2[<span class="hljs-number">2</span> * rows + j] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>();
+            arr2[<span class="hljs-number">2</span> * rows + j] = [j, rows, color];
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; rows; j++)
+        &#123;
+            arr2[<span class="hljs-number">3</span> * rows + j] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>();
+            arr2[<span class="hljs-number">3</span> * rows + j] = [<span class="hljs-number">0</span>, j, color];
+        &#125;
+        <span class="hljs-comment">// log(arr2);</span>
+        <span class="hljs-keyword">try</span> &#123;
+            p = images.findMultiColors(img, color, arr2, &#123;
+                region: [tb[<span class="hljs-number">0</span>], tb[<span class="hljs-number">1</span>], tb[<span class="hljs-number">2</span>] - tb[<span class="hljs-number">0</span>], tb[<span class="hljs-number">3</span>] - tb[<span class="hljs-number">1</span>]],
+                threshold: <span class="hljs-number">5</span>
+            &#125;);
+            <span class="hljs-comment">// log(arr2.length);</span>
+            <span class="hljs-keyword">if</span> (p) &#123;
+                img.recycle();
+                log(p);
+                <span class="hljs-keyword">return</span> p.x + <span class="hljs-built_in">parseInt</span>(tb[<span class="hljs-number">4</span>] / <span class="hljs-number">2</span>);
+            &#125;
+        &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+            <span class="hljs-comment">//出错</span>
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;识别失败，错误原因：&quot;</span> + error);
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">try</span> &#123;
+        img.recycle();
+    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;识别失败，错误原因：&quot;</span> + error);
+    &#125;
+    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+&#125;
+   
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">start</span>(<span class="hljs-params"></span>) </span>&#123;
+    auto.waitFor()
+    <span class="hljs-function"><span class="hljs-title">for</span>(<span class="hljs-params"><span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">0</span>;i++</span>)</span>&#123;sleep(<span class="hljs-number">1000</span>);log(i);&#125;
+    <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;
+        img = images.captureScreen();
+        <span class="hljs-keyword">if</span> (img) &#123;
+            log(<span class="hljs-string">&quot;截图成功。进行识别滑块！&quot;</span>);
+            <span class="hljs-keyword">break</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            log(<span class="hljs-string">&#x27;截图失败,重新截图&#x27;</span>);
+        &#125;
+    &#125;
+    <span class="hljs-comment">// var x = discernSlidingblock(imgURL(),1440);</span>
+    <span class="hljs-keyword">var</span> x = discernSlidingblock(imgBy1440(),<span class="hljs-number">1440</span>);
+    <span class="hljs-built_in">console</span>.info(<span class="hljs-string">&quot;识别结果滑块X坐标：&quot;</span> + x);
+   
+    <span class="hljs-keyword">if</span> (x &gt; -<span class="hljs-number">1</span>) &#123;
+        randomSwipe(start_x, y, x, y)
+        <span class="hljs-comment">//滑动完成</span>
+    &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;识别有误，请确认是否在滑块界面&quot;</span>);
+    &#125;
+&#125;
+   
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bezierCreate</span>(<span class="hljs-params">x1,y1,x2,y2,x3,y3,x4,y4</span>)</span>&#123;
+    <span class="hljs-comment">//构建参数</span>
+    <span class="hljs-keyword">var</span> h=<span class="hljs-number">100</span>;
+    <span class="hljs-keyword">var</span> cp=[&#123;<span class="hljs-attr">x</span>:x1,<span class="hljs-attr">y</span>:y1+h&#125;,&#123;<span class="hljs-attr">x</span>:x2,<span class="hljs-attr">y</span>:y2+h&#125;,&#123;<span class="hljs-attr">x</span>:x3,<span class="hljs-attr">y</span>:y3+h&#125;,&#123;<span class="hljs-attr">x</span>:x4,<span class="hljs-attr">y</span>:y4+h&#125;];
+    <span class="hljs-keyword">var</span> numberOfPoints = <span class="hljs-number">100</span>;
+    <span class="hljs-keyword">var</span> curve = [];
+    <span class="hljs-keyword">var</span> dt = <span class="hljs-number">1.0</span> / (numberOfPoints - <span class="hljs-number">1</span>);
+       
+    <span class="hljs-comment">//计算轨迹</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; numberOfPoints; i++)&#123;
+        <span class="hljs-keyword">var</span> ax, bx, cx;
+        <span class="hljs-keyword">var</span> ay, by, cy;
+        <span class="hljs-keyword">var</span> tSquared, tCubed;
+        <span class="hljs-keyword">var</span> result_x, result_y;
+       
+        cx = <span class="hljs-number">3.0</span> * (cp[<span class="hljs-number">1</span>].x - cp[<span class="hljs-number">0</span>].x);
+        bx = <span class="hljs-number">3.0</span> * (cp[<span class="hljs-number">2</span>].x - cp[<span class="hljs-number">1</span>].x) - cx;
+        ax = cp[<span class="hljs-number">3</span>].x - cp[<span class="hljs-number">0</span>].x - cx - bx;
+        cy = <span class="hljs-number">3.0</span> * (cp[<span class="hljs-number">1</span>].y - cp[<span class="hljs-number">0</span>].y);
+        by = <span class="hljs-number">3.0</span> * (cp[<span class="hljs-number">2</span>].y - cp[<span class="hljs-number">1</span>].y) - cy;
+        ay = cp[<span class="hljs-number">3</span>].y - cp[<span class="hljs-number">0</span>].y - cy - by;
+       
+        <span class="hljs-keyword">var</span> t=dt*i
+        tSquared = t * t;
+        tCubed = tSquared * t;
+        result_x = (ax * tCubed) + (bx * tSquared) + (cx * t) + cp[<span class="hljs-number">0</span>].x;
+        result_y = (ay * tCubed) + (by * tSquared) + (cy * t) + cp[<span class="hljs-number">0</span>].y;
+        curve[i] = &#123;
+            x: result_x,
+            y: result_y
+        &#125;;
+    &#125;
+   
+    <span class="hljs-comment">//轨迹转路数组</span>
+    <span class="hljs-keyword">var</span> array=[];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;i&lt;curve.length; i++) &#123;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-keyword">var</span> j = (i &lt; <span class="hljs-number">100</span>) ? i : (<span class="hljs-number">199</span> - i);
+            xx = <span class="hljs-built_in">parseInt</span>(curve[j].x)
+            yy = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.abs(<span class="hljs-number">100</span> - curve[j].y))
+        &#125; <span class="hljs-keyword">catch</span> (e) &#123;
+            <span class="hljs-keyword">break</span>
+        &#125;
+        array.push([xx, yy])
+    &#125;
+       
+    <span class="hljs-keyword">return</span> array
+&#125;
+   
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 真人模拟滑动函数</span>
+<span class="hljs-comment"> * </span>
+<span class="hljs-comment"> * 传入值：起点终点坐标</span>
+<span class="hljs-comment"> * 效果：模拟真人滑动</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">randomSwipe</span>(<span class="hljs-params">sx,sy,ex,ey</span>)</span>&#123;
+    <span class="hljs-comment">//设置随机滑动时长范围</span>
+    <span class="hljs-keyword">var</span> timeMin=<span class="hljs-number">500</span>
+    <span class="hljs-keyword">var</span> timeMax=<span class="hljs-number">1500</span>
+    <span class="hljs-comment">//设置控制点极限距离</span>
+    <span class="hljs-keyword">var</span> leaveHeightLength=<span class="hljs-number">50</span>
+    log([sx, sy, ex, ey]);
+    <span class="hljs-comment">//根据偏差距离，应用不同的随机方式</span>
+    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Math</span>.abs(ex-sx)&gt;<span class="hljs-built_in">Math</span>.abs(ey-sy))&#123;
+        <span class="hljs-keyword">var</span> my=(sy+ey)/<span class="hljs-number">2</span>
+        <span class="hljs-keyword">var</span> y2=my+random(<span class="hljs-number">0</span>,leaveHeightLength)
+        <span class="hljs-keyword">var</span> y3=my-random(<span class="hljs-number">0</span>,leaveHeightLength)
+       
+        <span class="hljs-keyword">var</span> lx=(sx-ex)/<span class="hljs-number">3</span>
+        <span class="hljs-function"><span class="hljs-title">if</span>(<span class="hljs-params">lx&lt;<span class="hljs-number">0</span></span>)</span>&#123;lx=-lx&#125;
+        <span class="hljs-keyword">var</span> x2=sx+lx/<span class="hljs-number">2</span>+random(<span class="hljs-number">0</span>,lx)
+        <span class="hljs-keyword">var</span> x3=sx+lx+lx/<span class="hljs-number">2</span>+random(<span class="hljs-number">0</span>,lx)
+    &#125;<span class="hljs-keyword">else</span>&#123;
+        <span class="hljs-keyword">var</span> mx=(sx+ex)/<span class="hljs-number">2</span>
+        <span class="hljs-keyword">var</span> y2=mx+random(<span class="hljs-number">0</span>,leaveHeightLength)
+        <span class="hljs-keyword">var</span> y3=mx-random(<span class="hljs-number">0</span>,leaveHeightLength)
+   
+        <span class="hljs-keyword">var</span> ly=(sy-ey)/<span class="hljs-number">3</span>
+        <span class="hljs-function"><span class="hljs-title">if</span>(<span class="hljs-params">ly&lt;<span class="hljs-number">0</span></span>)</span>&#123;ly=-ly&#125;
+        <span class="hljs-keyword">var</span> y2=sy+ly/<span class="hljs-number">2</span>+random(<span class="hljs-number">0</span>,ly)
+        <span class="hljs-keyword">var</span> y3=sy+ly+ly/<span class="hljs-number">2</span>+random(<span class="hljs-number">0</span>,ly)
+    &#125;
+   
+    <span class="hljs-comment">//获取运行轨迹，及参数</span>
+    <span class="hljs-keyword">var</span> time=[<span class="hljs-number">0</span>,random(timeMin,timeMax)]
+    <span class="hljs-keyword">var</span> track=bezierCreate(sx,sy,x2,y2,x3,y3,ex,ey)
+       
+    log(<span class="hljs-string">&quot;随机控制点A坐标：&quot;</span>+x2+<span class="hljs-string">&quot;,&quot;</span>+y2)
+    log(<span class="hljs-string">&quot;随机控制点B坐标：&quot;</span>+x3+<span class="hljs-string">&quot;,&quot;</span>+y3)
+    log(<span class="hljs-string">&quot;随机滑动时长：&quot;</span>+time[<span class="hljs-number">1</span>])
+       
+    <span class="hljs-comment">//滑动</span>
+    gestures(time.concat(track))
+    <span class="hljs-comment">// console.hide()</span>
+&#125;
+   
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">imgBy1080</span>(<span class="hljs-params"></span>)</span>&#123;
+    <span class="hljs-keyword">var</span> img=captureScreen()
+    <span class="hljs-keyword">return</span> images.resize(img,[<span class="hljs-number">1080</span>,device.height*<span class="hljs-number">1080</span>/device.width])
+&#125;
+  
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">imgBy1440</span>(<span class="hljs-params"></span>)</span>&#123;
+    <span class="hljs-keyword">var</span> img=captureScreen();
+    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)
+    &#123;
+        <span class="hljs-keyword">if</span> (img)
+        &#123;
+            <span class="hljs-keyword">break</span>;
+        &#125;
+        <span class="hljs-keyword">else</span>
+        &#123;
+            img=captureScreen();
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> img;
+    <span class="hljs-comment">// return images.resize(img,[1440,device.height*1440/device.width])</span>
+&#125;
+ 
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">imgURL</span>(<span class="hljs-params"></span>)</span>&#123;
+    <span class="hljs-keyword">var</span> img = images.load(<span class="hljs-string">&quot;https://cdn.jsdelivr.net/gh/couurh/tc/XZSDK.jpg&quot;</span>);
+    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)
+    &#123;
+        <span class="hljs-keyword">if</span> (img)
+        &#123;
+            <span class="hljs-keyword">break</span>;
+        &#125;
+        <span class="hljs-keyword">else</span>
+        &#123;
+            img=images.load(<span class="hljs-string">&quot;https://cdn.jsdelivr.net/gh/couurh/tc/XZSDK.jpg&quot;</span>);
+        &#125;
+    &#125;
+    log(<span class="hljs-string">&quot;tupianxiazaichenggong&quot;</span>);
+    <span class="hljs-keyword">return</span> img;
+&#125;</code></pre></div>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/undefined.github.io/year/11/19/%E5%9F%BA%E4%BA%8EAuto.js%E7%9A%84%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E9%A1%B9%E7%9B%AE%20(%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97)/">
+                        <span class="hidden-mobile">基于Auto.js的辅助工具项目 (蚂蚁森林)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "9W8AmWB2IIaq4HLHtAvSSDjE-gzGzoHsz",
+          app_key: "BQF3DILiuFvGwQlvNV9oUkQF",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
