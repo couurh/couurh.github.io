@@ -8,33 +8,34 @@
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
+  <meta name="description" content="搭建Frp内网穿透，实现公网windows远程桌面连接">
   <meta name="author" content="Couurh">
   <meta name="keywords" content="">
+  
   <title>搭建Frp内网穿透，实现公网windows远程桌面连接 - 亦余Blog</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
   <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
     
     
       
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/gruvbox-dark.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/gruvbox-dark.min.css" />
     
   
 
   
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
@@ -59,7 +60,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"couurh.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"couurh.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -145,13 +146,13 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
                 class="iconfont icon-search"></i>&nbsp;</a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
+            <a class="nav-link" target="_self">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -160,7 +161,7 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://cdn.jsdelivr.net/gh/couurh/tc/Head Fig2.webp') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -220,11 +221,11 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
@@ -252,7 +253,7 @@
 <hr>
 <p><strong>步骤说明：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><br>Please select frps download url:<br>[<span class="hljs-number">1</span>].aliyun<br>[<span class="hljs-number">2</span>].github (default)<br><span class="hljs-comment">#输入下载frp服务端配置文件的服务器，默认GitHub</span><br>Please <span class="hljs-built_in">input</span> frps bind_port[<span class="hljs-number">1</span><span class="hljs-number">-65535</span>](Default Server Port: <span class="hljs-number">5443</span>):<br><span class="hljs-comment">#输入frp提供服务的端口，用于服务器端和客户端通信，默认5443</span><br>Please <span class="hljs-built_in">input</span> frps vhost_http_port[<span class="hljs-number">1</span><span class="hljs-number">-65535</span>](Default : <span class="hljs-number">80</span>):<br><span class="hljs-comment">#输入frp进行http穿透的http服务端口，默认80</span><br>Please <span class="hljs-built_in">input</span> frps vhost_https_port[<span class="hljs-number">1</span><span class="hljs-number">-65535</span>](Default : <span class="hljs-number">443</span>):<br><span class="hljs-comment">#输入frp进行https穿透的https服务端口，默认443</span><br>Please <span class="hljs-built_in">input</span> frps dashboard_port [<span class="hljs-number">1</span><span class="hljs-number">-65535</span>]<br>(Default : <span class="hljs-number">6443</span>):<br><span class="hljs-comment">#输入frp的控制台服务端口，用于查看frp工作状态，默认6443</span><br>Please <span class="hljs-built_in">input</span> frps dashboard_user(Default :admin):<br><span class="hljs-comment">#输入frp的控制台服务账号，默认admin</span><br>Please <span class="hljs-built_in">input</span> frps dashboard_pwd(Default :ZBdmQ53):<br><span class="hljs-comment">#输入frp的控制台服务密码，默认是随机生成的</span><br>Please <span class="hljs-built_in">input</span> frps token(Default :eOajAGbI5ZrSmU3a):<br><span class="hljs-comment">#输入frp服务器和客户端通信的密码，默认是随机生成的</span><br>Please <span class="hljs-built_in">input</span> frps subdomain_host(Default :<span class="hljs-number">35.189</span><span class="hljs-number">.139</span><span class="hljs-number">.184</span>):<br><span class="hljs-comment">#输入frp服务器自定义域名，支持自定义二次域名，默认是服务器IP地址</span><br>Please <span class="hljs-built_in">input</span> frps max_pool_count [<span class="hljs-number">1</span><span class="hljs-number">-200</span>]<br>(Default : <span class="hljs-number">50</span>):<br><span class="hljs-comment">#设置每个代理可以创建的连接池上限，默认50</span><br>Please select log_level<br><span class="hljs-number">1</span>: info (default)<br><span class="hljs-number">2</span>: warn<br><span class="hljs-number">3</span>: error<br><span class="hljs-number">4</span>: debug<br><span class="hljs-comment">#设置日志等级，4个选项，默认是info</span><br>Please <span class="hljs-built_in">input</span> frps log_max_days [<span class="hljs-number">1</span><span class="hljs-number">-30</span>]<br>(Default : <span class="hljs-number">3</span> day):<br><span class="hljs-comment">#设置日志保留天数，范围是1到30天，默认保留3天。</span><br>Please select log_file<br><span class="hljs-number">1</span>: enable (default)<br><span class="hljs-number">2</span>: disable<br><span class="hljs-comment">#设置是否开启日志记录，默认开启，开启后日志等级及保留天数生效，否则等级和保留天数无效</span><br>Please select tcp_mux<br><span class="hljs-number">1</span>: enable (default)<br><span class="hljs-number">2</span>: disable<br><span class="hljs-comment">#客户端和服务器端之间的连接支持多路复用，默认开启</span><br>Please select kcp support<br><span class="hljs-number">1</span>: enable (default)<br><span class="hljs-number">2</span>: disable<br><span class="hljs-comment">#选择是否开启kcp 协议，默认开启，弱网环境下传输效率提升明显，但会有额外的流量消耗</span><br></code></pre></div></td></tr></table></figure>
-<p>启动成功后，本地访问 <a target="_blank" rel="noopener" href="http://ip或者自定义域名:6433/">http://ip或者自定义域名:6433</a>  即可看到WEB控制台。到此安装服务端成功！<br><img src="https://cdn.jsdelivr.net/gh/couurh/tc/FRP2.webp" srcset="/img/loading.gif"></p>
+<p>启动成功后，本地访问 <a target="_blank" rel="noopener" href="http://ip或者自定义域名:6433/">http://ip或者自定义域名:6433</a>  即可看到WEB控制台。到此安装服务端成功！<br><img src="https://cdn.jsdelivr.net/gh/couurh/tc/FRP2.webp" srcset="/img/loading.gif" lazyload></p>
 <h3 id="二-客户端配置"><a href="#二-客户端配置" class="headerlink" title="二. 客户端配置"></a>二. 客户端配置</h3><hr>
 <p>具有内网IP的电脑将作为客户端(frpc)， 本文中客户端使用的是win10 64位系统，所以在releases页面下载frp_0.25.0_windows_amd64.zip解压，只需保留frpc frpc.ini两个文件，其他可以删除</p>
 <hr>
@@ -270,8 +271,8 @@
 <p>同样的道理，我们也需要对客户端设置后台运行和开机自启。借助<a target="_blank" rel="noopener" href="https://github.com/kohsuke/winsw/releases">winsw</a>工具可以将frpc注册为windows系统中的服务。<br>下载winsw最新版，为了方便将其重命名为winsw.exe, 将该文件和frpc.exe放在一起，然后新建winsw.xml写入以下内容：</p>
 <hr>
 <figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python">&lt;service&gt;<br>    &lt;id&gt;frp&lt;/id&gt;<br>    &lt;name&gt;frp这里是服务的名称&lt;/name&gt;<br>    &lt;description&gt;这里是服务的介绍，随便写&lt;/description&gt;<br>    &lt;executable&gt;frpc&lt;/executable&gt;<br>    &lt;arguments&gt;-c frpc.ini&lt;/arguments&gt;<br>    &lt;onfailure action=<span class="hljs-string">&quot;restart&quot;</span> delay=<span class="hljs-string">&quot;60 sec&quot;</span>/&gt;<br>    &lt;onfailure action=<span class="hljs-string">&quot;restart&quot;</span> delay=<span class="hljs-string">&quot;120 sec&quot;</span>/&gt;<br>    &lt;logmode&gt;reset&lt;/logmode&gt;<br>&lt;/service&gt;<br></code></pre></div></td></tr></table></figure>
-<p>然后使用winsw install和winsw start命令即可将frpc安装为系统服务。<br>win+r后通过services.msc进入到服务列表页面找到frp服务。为了确保frpc在连接失败后自动尝试重新连接，在恢复tap页进行如下设置：<br><img src="https://cdn.jsdelivr.net/gh/couurh/tc/FRP3.webp" srcset="/img/loading.gif"></p>
-<p>使用微软远程工具，填入公网IP，ssh端口号以及主机名，设置如下：<br><img src="https://cdn.jsdelivr.net/gh/couurh/tc/FRP4.webp" srcset="/img/loading.gif"></p>
+<p>然后使用winsw install和winsw start命令即可将frpc安装为系统服务。<br>win+r后通过services.msc进入到服务列表页面找到frp服务。为了确保frpc在连接失败后自动尝试重新连接，在恢复tap页进行如下设置：<br><img src="https://cdn.jsdelivr.net/gh/couurh/tc/FRP3.webp" srcset="/img/loading.gif" lazyload></p>
+<p>使用微软远程工具，填入公网IP，ssh端口号以及主机名，设置如下：<br><img src="https://cdn.jsdelivr.net/gh/couurh/tc/FRP4.webp" srcset="/img/loading.gif" lazyload></p>
 <p>使用问题</p>
 <p>1.检查是否关闭服务端防火墙或者是开启要用到的端口<br>2.域名映射是否正确，检查能不能ping得通域名(域名前面不要忘了www)</p>
 
@@ -283,10 +284,14 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
               
               
-                <div class="post-prevnext row">
+                <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
                     
@@ -313,15 +318,17 @@
 
             
               <!-- Comments -->
-              <article class="comments" id="comments">
+              <article class="comments" id="comments" lazyload>
+                
+                  
                 
                 
-  <div id="vcomments"></div>
+  <div id="valine"></div>
   <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
         new Valine({
-          el: "#vcomments",
+          el: "#valine",
           app_id: "9W8AmWB2IIaq4HLHtAvSSDjE-gzGzoHsz",
           app_key: "BQF3DILiuFvGwQlvNV9oUkQF",
           placeholder: "说点什么",
@@ -337,9 +344,7 @@
       });
     });
   </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
+  <noscript>Please enable JavaScript to view the comments</noscript>
 
 
               </article>
@@ -405,30 +410,37 @@
   
 
   
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        陕ICP备2021006643号
+      </a>
+    </span>
+    
+  </div>
+
 
   
 </footer>
 
-<!-- SCRIPTS -->
 
-  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
 
   <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
     NProgress.start()
-    document.addEventListener('DOMContentLoaded', function() {
-      window.NProgress && window.NProgress.inc();
-    })
     window.addEventListener('load', function() {
       NProgress.done();
     })
   </script>
 
 
-<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
@@ -436,7 +448,7 @@
 
 
   
-    <script  src="/js/lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -445,26 +457,26 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
 
 
 
 
 
 
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
@@ -481,11 +493,12 @@
   <script>
     (function () {
       var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
+      $('#local-search-input').on('click', function() {
         searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
     })()
   </script>
 
@@ -509,7 +522,6 @@
 
 <!-- 主题的启动项 保持在最底部 -->
 <script  src="/js/boot.js" ></script>
-
 
 
 </body>
