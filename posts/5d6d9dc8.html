@@ -1,0 +1,731 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://kjimg10.360buyimg.com/ott/jfs/t1/114690/31/31803/20186/63f05d9fFc7a98edb/735a5a4c4ec2a38c.png">
+  <link rel="icon" href="https://kjimg10.360buyimg.com/ott/jfs/t1/114690/31/31803/20186/63f05d9fFc7a98edb/735a5a4c4ec2a38c.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Couurh">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="搭建Frp内网穿透，实现公网windows远程桌面连接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建Frp内网穿透，实现公网windows远程桌面连接">
+<meta property="og:url" content="https://couurh.github.io/posts/5d6d9dc8.html">
+<meta property="og:site_name" content="亦余Blog">
+<meta property="og:description" content="搭建Frp内网穿透，实现公网windows远程桌面连接">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kjimg10.360buyimg.com/ott/jfs/t1/213438/26/25848/22689/63f069ecF3c554240/c33ff342878227ef.png">
+<meta property="article:published_time" content="2020-07-11T02:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-18T07:59:17.445Z">
+<meta property="article:author" content="Couurh">
+<meta property="article:tag" content="内网穿透">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kjimg10.360buyimg.com/ott/jfs/t1/213438/26/25848/22689/63f069ecF3c554240/c33ff342878227ef.png">
+  
+  
+  
+  <title>搭建Frp内网穿透，实现公网windows远程桌面连接 - 亦余Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"couurh.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="亦余Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>亦余Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://kjimg10.360buyimg.com/ott/jfs/t1/64792/33/23610/1162547/63f069c9F9f0c9040/0b3dd2822c117b41.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="搭建Frp内网穿透，实现公网windows远程桌面连接"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-07-11 10:00" pubdate>
+          July 11, 2020 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">搭建Frp内网穿透，实现公网windows远程桌面连接</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>搭建Frp内网穿透，实现公网windows远程桌面连接</p>
+<p>使用Frp内网穿透工具使处于内网中的电脑能够像访问公网电脑一样方便，比如将公司或个人电脑里面的web项目让别人能够访问以便于自己及时修改，或者是进行远程或ssh连接。能够实现内网穿透的还有花生壳，ngrok等，但frp使用起来更加简便灵活，以及项目一直开源，所以本文选择frp作为示例。<br>Frp 是一个高性能的反向代理应用，可以帮助您轻松地进行内网穿透，对外网提供服务，支持 tcp, http, https 等协议类型，并且 web 服务支持根据域名进行路由转发。</p>
+<hr>
+<p>[项目地址][1]</p>
+<p><strong>数据准备：</strong></p>
+<p>•    公网IP: X.X.X.X<br>•    内网IP: 192.168.1.101<br>•    映射到公网的域名：xxx.com<br>本文中内网电脑使用的是win10系统，公网电脑为win系统。</p>
+<h3 id="一-服务端配置"><a href="#一-服务端配置" class="headerlink" title="一. 服务端配置"></a>一. 服务端配置</h3><hr>
+<p>此脚本是Frp一键部署Linux服务端，像酸酸乳、v2ray 等一键.sh脚本，安装、更新、重启、开机启动等服务。<br>[脚本代码地址][2]<br>服务端安装支持：Centos | Debian | Ubuntu （32bit / 64bit）</p>
+<hr>
+<p><strong>Install（安装）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-number">1.</span>	wget https://raw.githubusercontent.com/MvsCode/frp-onekey/master/install-frps.sh -O ./install-frps.sh<br><span class="hljs-number">2.</span>	chmod <span class="hljs-number">700</span> ./install-frps.sh<br><span class="hljs-number">3.</span>	./install-frps.sh install<br></code></pre></td></tr></table></figure>
+<p><strong>Uninstall（卸载）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-number">1.</span>	./install-frps.sh uninstall<br></code></pre></td></tr></table></figure>
+<p><strong>Update（更新）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-number">1.</span>	./install-frps.sh update<br></code></pre></td></tr></table></figure>
+<p><strong>服务端相关命令</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">frps start    <span class="hljs-comment">#启动frps服务端</span><br>frps stop     <span class="hljs-comment">#停止frps服务端</span><br>frps restart  <span class="hljs-comment">#重启frps服务端</span><br>frps status   <span class="hljs-comment">#显示frps状态</span><br>frps config   <span class="hljs-comment">#配置frps服务端</span><br>frps version  <span class="hljs-comment">#显示frps版本</span><br></code></pre></td></tr></table></figure>
+<p>脚本将会自动识别机器的IP地址，所有选项支持自定义，也均可默认配置，也就是直接按回车，程序就会使用默认配置进行安装</p>
+<hr>
+<p><strong>步骤说明：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs python"><br>Please select frps download url:<br>[<span class="hljs-number">1</span>].aliyun<br>[<span class="hljs-number">2</span>].github (default)<br><span class="hljs-comment">#输入下载frp服务端配置文件的服务器，默认GitHub</span><br>Please <span class="hljs-built_in">input</span> frps bind_port[<span class="hljs-number">1</span>-<span class="hljs-number">65535</span>](Default Server Port: <span class="hljs-number">5443</span>):<br><span class="hljs-comment">#输入frp提供服务的端口，用于服务器端和客户端通信，默认5443</span><br>Please <span class="hljs-built_in">input</span> frps vhost_http_port[<span class="hljs-number">1</span>-<span class="hljs-number">65535</span>](Default : <span class="hljs-number">80</span>):<br><span class="hljs-comment">#输入frp进行http穿透的http服务端口，默认80</span><br>Please <span class="hljs-built_in">input</span> frps vhost_https_port[<span class="hljs-number">1</span>-<span class="hljs-number">65535</span>](Default : <span class="hljs-number">443</span>):<br><span class="hljs-comment">#输入frp进行https穿透的https服务端口，默认443</span><br>Please <span class="hljs-built_in">input</span> frps dashboard_port [<span class="hljs-number">1</span>-<span class="hljs-number">65535</span>]<br>(Default : <span class="hljs-number">6443</span>):<br><span class="hljs-comment">#输入frp的控制台服务端口，用于查看frp工作状态，默认6443</span><br>Please <span class="hljs-built_in">input</span> frps dashboard_user(Default :admin):<br><span class="hljs-comment">#输入frp的控制台服务账号，默认admin</span><br>Please <span class="hljs-built_in">input</span> frps dashboard_pwd(Default :ZBdmQ53):<br><span class="hljs-comment">#输入frp的控制台服务密码，默认是随机生成的</span><br>Please <span class="hljs-built_in">input</span> frps token(Default :eOajAGbI5ZrSmU3a):<br><span class="hljs-comment">#输入frp服务器和客户端通信的密码，默认是随机生成的</span><br>Please <span class="hljs-built_in">input</span> frps subdomain_host(Default :<span class="hljs-number">35.189</span><span class="hljs-number">.139</span><span class="hljs-number">.184</span>):<br><span class="hljs-comment">#输入frp服务器自定义域名，支持自定义二次域名，默认是服务器IP地址</span><br>Please <span class="hljs-built_in">input</span> frps max_pool_count [<span class="hljs-number">1</span>-<span class="hljs-number">200</span>]<br>(Default : <span class="hljs-number">50</span>):<br><span class="hljs-comment">#设置每个代理可以创建的连接池上限，默认50</span><br>Please select log_level<br><span class="hljs-number">1</span>: info (default)<br><span class="hljs-number">2</span>: warn<br><span class="hljs-number">3</span>: error<br><span class="hljs-number">4</span>: debug<br><span class="hljs-comment">#设置日志等级，4个选项，默认是info</span><br>Please <span class="hljs-built_in">input</span> frps log_max_days [<span class="hljs-number">1</span>-<span class="hljs-number">30</span>]<br>(Default : <span class="hljs-number">3</span> day):<br><span class="hljs-comment">#设置日志保留天数，范围是1到30天，默认保留3天。</span><br>Please select log_file<br><span class="hljs-number">1</span>: enable (default)<br><span class="hljs-number">2</span>: disable<br><span class="hljs-comment">#设置是否开启日志记录，默认开启，开启后日志等级及保留天数生效，否则等级和保留天数无效</span><br>Please select tcp_mux<br><span class="hljs-number">1</span>: enable (default)<br><span class="hljs-number">2</span>: disable<br><span class="hljs-comment">#客户端和服务器端之间的连接支持多路复用，默认开启</span><br>Please select kcp support<br><span class="hljs-number">1</span>: enable (default)<br><span class="hljs-number">2</span>: disable<br><span class="hljs-comment">#选择是否开启kcp 协议，默认开启，弱网环境下传输效率提升明显，但会有额外的流量消耗</span><br></code></pre></td></tr></table></figure>
+<p>启动成功后，本地访问 <a target="_blank" rel="noopener" href="http://ip或者自定义域名:6433/">http://ip或者自定义域名:6433</a>  即可看到WEB控制台。到此安装服务端成功！<br><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/124231/21/33892/11131/63f069c5F82bb71cd/fe6aa4e0e43d1c2b.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<h3 id="二-客户端配置"><a href="#二-客户端配置" class="headerlink" title="二. 客户端配置"></a>二. 客户端配置</h3><hr>
+<p>具有内网IP的电脑将作为客户端(frpc)， 本文中客户端使用的是win10 64位系统，所以在releases页面下载frp_0.25.0_windows_amd64.zip解压，只需保留frpc frpc.ini两个文件，其他可以删除</p>
+<hr>
+<p><strong>通过 ssh 访问公司内网机器（例）</strong><br>修改 frps.ini 文件，这里使用了最简化的配置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">[common]<br>bind_port = <span class="hljs-number">7000</span> <span class="hljs-comment">#与客户端绑定的进行通信的端口</span><br>token = <span class="hljs-number">1234</span> <span class="hljs-comment">#身份验证</span><br></code></pre></td></tr></table></figure>
+<p>修改完成后在此此文件目录下启动服务 执行此命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">•	前台启动<br>./frps -c ./frps.ini<br>•	后台启动<br>nohup ./frps -c ./frps.ini &amp;<br></code></pre></td></tr></table></figure>
+<p>修改 frpc.ini 文件，假设 frps 所在服务器的公网 IP 为 x.x.x.x</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">[common]<br>server_addr = x.x.x.x <span class="hljs-comment">#公网服务器ip</span><br>server_port = <span class="hljs-number">7000</span> <span class="hljs-comment">#与服务端bind_port一致</span><br>token = <span class="hljs-number">1234</span> <span class="hljs-comment">#身份验证</span><br><br>[ssh]<br><span class="hljs-built_in">type</span> = tcp <span class="hljs-comment">#连接协议</span><br>local_ip = <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> <span class="hljs-comment">#内网服务器IP</span><br>local_port = <span class="hljs-number">3389</span> <span class="hljs-comment">#ssh远程端口号</span><br>remote_port = <span class="hljs-number">6000</span> <span class="hljs-comment">#自定义访问内部ssh端口号</span><br></code></pre></td></tr></table></figure>
+<p>修改完成后在此此文件目录下启动服务 执行此命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">•	前台启动<br>./frpc -c ./frpc.ini<br>•	后台启动<br>nohup ./frpc -c ./frpc.ini &amp;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="三-设置开机启动和后台运行"><a href="#三-设置开机启动和后台运行" class="headerlink" title="三. 设置开机启动和后台运行"></a>三. 设置开机启动和后台运行</h3><hr>
+<p>同样的道理，也需要对客户端设置后台运行和开机自启。借助[winsw][4]工具可以将frpc注册为windows系统中的服务。<br>下载winsw最新版，为了方便将其重命名为winsw.exe, 将该文件和frpc.exe放在一起，然后新建winsw.xml写入以下内容：</p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">&lt;service&gt;<br>    &lt;<span class="hljs-built_in">id</span>&gt;frp&lt;/<span class="hljs-built_in">id</span>&gt;<br>    &lt;name&gt;frp这里是服务的名称&lt;/name&gt;<br>    &lt;description&gt;这里是服务的介绍，随便写&lt;/description&gt;<br>    &lt;executable&gt;frpc&lt;/executable&gt;<br>    &lt;arguments&gt;-c frpc.ini&lt;/arguments&gt;<br>    &lt;onfailure action=<span class="hljs-string">&quot;restart&quot;</span> delay=<span class="hljs-string">&quot;60 sec&quot;</span>/&gt;<br>    &lt;onfailure action=<span class="hljs-string">&quot;restart&quot;</span> delay=<span class="hljs-string">&quot;120 sec&quot;</span>/&gt;<br>    &lt;logmode&gt;reset&lt;/logmode&gt;<br>&lt;/service&gt;<br></code></pre></td></tr></table></figure>
+<p>然后使用winsw install和winsw start命令即可将frpc安装为系统服务。<br>win+r后通过services.msc进入到服务列表页面找到frp服务。为了确保frpc在连接失败后自动尝试重新连接，在恢复tap页进行如下设置：<br><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/181205/27/32548/23487/63f069baF0b441de0/e579b7e20c6746db.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>使用微软远程工具，填入公网IP，ssh端口号以及主机名，设置如下：<br><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/125555/17/30264/21819/63f06a2aF368a41a3/645553205f7a6c65.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>使用问题</p>
+<p>1.检查是否关闭服务端防火墙或者是开启要用到的端口<br>2.域名映射是否正确，检查能不能ping得通域名(域名前面不要忘了www)</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" class="category-chain-item">实用技巧</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">#内网穿透</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>搭建Frp内网穿透，实现公网windows远程桌面连接</div>
+      <div>https://couurh.github.io/posts/5d6d9dc8.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Couurh</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 11, 2020</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/7f0d2c71.html" title="Tasker实现收到短信自动转发到微信">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Tasker实现收到短信自动转发到微信</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/65d19576.html" title="OnePlus 7 Pro 刷机教程 - 第二章">
+                        <span class="hidden-mobile">OnePlus 7 Pro 刷机教程 - 第二章</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"9W8AmWB2IIaq4HLHtAvSSDjE-gzGzoHsz","appKey":"BQF3DILiuFvGwQlvNV9oUkQF","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

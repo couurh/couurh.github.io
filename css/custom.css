@@ -1,0 +1,184 @@
+/*侧边滚动条*/
+::-webkit-scrollbar-button {
+  display: none;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(47,65,84,0.322);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #2f4154;
+  background-image: -webkit-linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(47,65,84,0.722);
+}
+#scroll-top-button {
+  border-radius: 25px;
+  -webkit-transition: all 0.6s;
+  -moz-transition: all 0.6s;
+  -o-transition: all 0.6s;
+  transition: all 0.6s;
+}
+#scroll-top-button:hover {
+  transform: scale(1.2);
+  border-radius: 20%;
+}
+/* 想在手机端也显示，去除最外层的 @media，并更改缩进 */
+@media (min-width: 768px) {
+  .post-content h1::before {
+    content: "🌈";
+    visibility: visible;
+    display: inline;
+  }
+  .post-content h2::before {
+    content: "🚀";
+    visibility: visible;
+    display: inline;
+  }
+  .post-content h3::before {
+    content: "🔍";
+    visibility: visible;
+    display: inline;
+  }
+}
+.tocbot-list a,
+#toc,
+footer,
+footer a {
+  color: #fff;
+}
+footer a:hover,
+.tocbot-active-link {
+  color: #1abc9c !important;
+}
+.markdown-body pre {
+  padding-bottom: 5px;
+}
+.markdown-body pre code {
+  padding: 1rem 0 0.5rem 0;
+  font-size: 16px;
+}
+.markdown-body pre code P.sansserif {
+  font-family: "Arial", Verdana, Sans-serif;
+}
+.markdown-body pre code::before {
+  content: ' ';
+  position: absolute;
+  background: #fc625d;
+  border-radius: 50%;
+  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+  margin-top: -20px;
+  left: 12px;
+  height: 12px;
+  width: 12px;
+}
+/* 切换按钮 */
+#dark {
+  cursor: pointer;
+  position: fixed;
+  right: 40px;
+  bottom: 98px;
+  width: 16px;
+  height: 14px;
+  z-index: 100;
+  font-size: 20px;
+}
+/*暗黑模式*/
+.dark #board {
+  background-color: #282c34;
+  color: #a09c9c;
+}
+.dark img {
+  filter: brightness(50%);
+}
+.dark p,
+.dark .index-info a {
+  color: #a09c9c !important;
+}
+.dark .markdown-body h1,
+.dark .markdown-body h2,
+.dark .markdown-body h3,
+.dark .markdown-body h4,
+.dark .markdown-body h5,
+.dark .markdown-body h6,
+.dark .markdown-body s,
+.dark .markdown-body li {
+  color: #a09c9c !important;
+}
+.dark .navbar-col-show,
+.dark .top-nav-collapse {
+  background-color: #282c34;
+}
+.dark .navbar a {
+  color: #a09c9c !important;
+}
+.dark .animated-icon span {
+  background-color: #a09c9c;
+}
+.dark .pagination a:hover,
+.dark .pagination .current {
+  background-color: rgba(107,107,107,0.451);
+}
+.dark #subtitle,
+.dark .dark.typed-cursor--blink,
+.dark .scroll-down-arrow {
+  color: #dfdfdf;
+}
+.dark #scroll-top-button {
+  background-color: #282c34;
+}
+.dark #scroll-top-button i {
+  color: #a09c9c;
+}
+.dark .tocbot-list a {
+  color: #a09c9c;
+}
+.dark .tocbot-active-link,
+.dark footer a:hover {
+  color: #1abc9c !important;
+}
+.dark footer,
+.dark footer a {
+  color: #a09c9c;
+}
+.dark .list-group-item {
+  color: #a09c9c;
+  background-color: #282c34;
+}
+.dark .list-group-item:hover,
+.dark .tagcloud a:hover {
+  background-color: #46484d;
+}
+.dark .links .card {
+  background-color: #282c34;
+}
+.dark .links .card-body:hover {
+  background-color: #46484d;
+}
+.dark .links .link-title,
+.dark .links .link-intro {
+  color: #a09c9c;
+}
+.dark .note-info {
+  background-color: #3b5359;
+  border-color: #006d80;
+}
+.dark .note-danger {
+  background-color: #783f42;
+  border-color: #670009;
+}
+.dark .note-success {
+  background-color: #2a3e2e;
+  border-color: #005915;
+}
+.dark .note-warning {
+  background-color: #5b543e;
+  border-color: #846500;
+}
+.dark .note-primary {
+  background-color: #455a6f;
+  border-color: #004188;
+}

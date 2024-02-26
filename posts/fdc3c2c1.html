@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://kjimg10.360buyimg.com/ott/jfs/t1/114690/31/31803/20186/63f05d9fFc7a98edb/735a5a4c4ec2a38c.png">
+  <link rel="icon" href="https://kjimg10.360buyimg.com/ott/jfs/t1/114690/31/31803/20186/63f05d9fFc7a98edb/735a5a4c4ec2a38c.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Couurh">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="随身WIFI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随身WIFI刷Debian系统">
+<meta property="og:url" content="https://couurh.github.io/posts/fdc3c2c1.html">
+<meta property="og:site_name" content="亦余Blog">
+<meta property="og:description" content="随身WIFI">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kjimg10.360buyimg.com/ott/jfs/t20251009/197852/8/33632/51435/6524cbf9F1a87697c/29632364b836b071.jpg">
+<meta property="article:published_time" content="2022-10-15T04:20:00.000Z">
+<meta property="article:modified_time" content="2023-10-10T07:39:43.871Z">
+<meta property="article:author" content="Couurh">
+<meta property="article:tag" content="WIFI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kjimg10.360buyimg.com/ott/jfs/t20251009/197852/8/33632/51435/6524cbf9F1a87697c/29632364b836b071.jpg">
+  
+  
+  
+  <title>随身WIFI刷Debian系统 - 亦余Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"couurh.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="亦余Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>亦余Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://kjimg10.360buyimg.com/ott/jfs/t1/64792/33/23610/1162547/63f069c9F9f0c9040/0b3dd2822c117b41.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="随身WIFI刷Debian系统"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-15 12:20" pubdate>
+          October 15, 2022 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">随身WIFI刷Debian系统</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="随身wifi刷机教程"><a href="#随身wifi刷机教程" class="headerlink" title="随身wifi刷机教程"></a>随身wifi刷机教程</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>工具文件可能被系统报毒删除，所以以win10为例，建议新建一个随身WiFi文件夹，然后在Windows安全中心—病毒和威胁防护—病毒威胁防护设置—管理设置—排除项—添加排除项，把文件夹添加进去，然后把刷机文件下载到这里，就不会被系统删除了，其它杀毒软件也可以类似这样设置。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/123353/18/41896/19491/651fda87Fa42a8513/e38480c6901ec1db.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>防止杀毒软件删除文件</center>
+
+<p>高通板子刷机需要安装9008驱动和adb驱动，打开并安装文件里的9008driver</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/220202/4/27813/21168/651fda7cFec9e654a/b8d215dbd283b798.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>安装驱动</center>
+
+<p>接着是关于adb的使用（本文所有用到的adb命令在文件夹文本里都有），adb全称Android debug bridge，后面很多用到的工具都集成了它，所以换到不同工具时可能会出现adb冲突，这时需要在任务管理器中停掉adb/Android debug bridge程序，后面我会提醒，虽然很多工具都集成了adb，但我还是提供了一份谷歌官方的adb工具。打开ADB文件夹到最后，点击地址栏末尾空白，输入cmd再回车就出现命令行界面</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/208384/1/34018/21209/651fdacdF7f2210eb/3ae1362d06075c5a.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>打开ADB工具</center>
+
+<p>把板子插上电脑，等待板子完全开机后，输入命令：adb devices<br>如果显示有设备连接就说明adb正常（有些板子adb功能没有打开，可以在本版块搜索开启方法）。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/197862/37/37157/27942/651fdaa8Fd7c0c433/bb7614ea02488166.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>查看adb是否正常</center>
+
+<p>两种方法进入9008模式：可以输入命令进：adb reboot edl<br>或者按住板子的恢复键，插入电脑一两秒后听到叮咚一声再松手。在设备管理器里看到端口有9008就表示成功了，需要9008刷机时再开启此端口。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/120971/7/39567/56929/651fdab1Ffda701f8/1c57eedc269cdcc3.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>9008</center>
+
+<h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>这一步非常重要！不建议新玩家拿到板子后直接刷别人的rom包，而是应该先备份好自己的rom，之后随便刷，只要硬件没坏都能救活。如果自己的板子系统是阉割版的，比如没有热点和网络共享等，可以刷一下别人的system包，其它情况不太需要刷别人的文件。备份主要有三个过程：</p>
+<p>1)用Miko loader制作救砖包以及如何救砖。找到miko文件夹，双击miko安装，直接默认就行了，记住安装路径，安装完成后把文件夹内的loader复制到miko的安装目录，创建loader的快捷方式到桌面</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/192206/36/40170/40744/651fdab0Fe390104b/556f058fdd64887e.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>复制loader并创建快捷方式</center>
+
+<p>让板子进入9008模式，打开loader，按照图片数字顺序一步步来</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/135127/39/39618/86030/651fdaecF137a34e8/822ae8c04bee943e.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>loader备份</center>
+
+<p>（点read，partition backup，双击下面double click to open save folder，选好救砖包生成的路径，点load partition structure，点read full image就能制作刷机救砖包，大概5分钟以内），保存好这个名为.bin的单文件。<br>刷机/救砖方法图片也标注了顺序，分别点flash，emmc block0 flasher，double click…..，flash！</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/186395/15/39438/56240/651fdb03Fddb1c159/5b21d2c0bb478e76.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>刷机或救砖</center>
+
+<p>2)用Qualcomm Premium Tool 备份全部分区文件，打开它的文件夹，有个提示先注册的程序，注意要把电脑音量调低！然后点开它后可能会提示安装一些东西，同意就行了，没有的话不用管，弹出窗口点击Generate Key，生成的key放在你知道的文件夹内</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/125204/16/38784/16436/651fda84F95e840d9/f116bc90f6d43863.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>注册机生成key</center>
+
+<p>打开Qualcomm Premium Tool程序，左上菜单栏找到help—active，选择刚才生成的key就能激活这个软件了</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/95968/22/35868/48145/651fda84Fa6a8e410/a9ae0f0c4bd4ec42.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>激活工具</center>
+
+<p>按照前面介绍的方法使板子进入9008模式(不要插卡），在Qualcomm Premium Tool按照图片数字一步一步进行</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/105887/31/40437/175204/651fdb03Fcaf462a1/d2bc226caa650821.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>备份步骤顺序</center>
+
+<p>找qualcomm和partition，在下面点scan，Do job，它会识别显示板子的内部分区，点backup（正常会自动跳到这一项），点do job进行备份。</p>
+<p>有以下几个文件fsc、fsg、modemst1、modemst2、modem（备份后为NON-HLOS.bin），分别重命名为fsc.bin、fsg.bin、modemst1.bin、modemst2.bin、NON-HLOS.img备用。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/91572/9/44268/84823/651fdb02F4f633392/60a0046bf30a2093.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>3)备份qcn和root，需要先进行root，简单点的办法就是安装magisk，再刷一下修补过的boot文件就有root了。当然我更建议自己修补boot，不用等别人做好，出问题的概率也更小。下面是如何自己动手获得root权限：<br>首先安装ardc，这是一个投屏软件，解决板子没有屏幕无法操作的问题，它的操作逻辑是鼠标左键为点击功能，右键为返回。安装完ardc后先别打开，检查一下任务管理器中，有adb或者android debug bridge程序在后台的话记得停掉，再把板子插到电脑上正常启动，打开ardc等待画面变化，成功后会停在深蓝色界面，然后把鼠标箭头移到此界面，右键点击两下，如果没有出现桌面，需要安装一个第三方桌面启动器，把我提供的apk文件里的launcher从电脑直接托到ardc界面就会自动给板子安装</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/10823/4/22578/37006/651fda57F5783407b/b80dbdf8cd0ca99c.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>安装桌面启动器</center>
+
+<p>等五秒后在主界面点一下鼠标右键，应该会出现选择主屏幕应用选择，点launcher和始终</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/107779/30/44500/14884/651fdaa7F00e2a834/61da388e696359f0.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>选择默认桌面启动器</center>
+
+<p>然后就能看到板子的系统界面了，接着安装es文件管理器和magisk，也是直接拖到ardc界面自动安装，装好后点开文件管理器，进入下载文件夹</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/95677/8/37820/20423/651fdaa6F0c05ad4f/18b40c2d1b14aec2.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>把之前Qualcomm备份的boot文件直接托到这里，就会复制过来了（几秒钟，点下面的刷新就会显示出来）</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/88715/9/44961/10496/651fdae9F09032e4f/881f23ecc2b37ac2.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>复制boot文件到板子</center>
+
+<p>退出es，点开magisk，找到图片提示的位置</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/179242/33/40037/25376/651fda54F27b5ade9/0b552df02927a8ba.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>magisk修补boot</center>
+
+<p>安装&gt;下一步&gt;选择并修补一个文件，选择刚才复制过来的boot，然后开始，等待它修补完成，退出并来到es文件管理器，进入下载，发现修补好的boot文件名太长了，长按后重命名为magiskboot.img<br>再点击ardc菜单最后一个&gt;&gt;; 弹出的cmd这里（实际就是这个软件也集成了adb功能，这里直接使用它的）</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/14078/5/30868/40046/651fdad6F9e549a5f/5d8ec7fab320afbf.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>打开ARDC的ADB功能</center>
+
+<p>输入命令：adb pull /sdcard/Download/magiskboot.img D:/xxx<br>这里D:/xxx换成你自己的路径（斜杠朝左还是朝右都可以），接着按回车就会把magiskboot.img导出到你的电脑上</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/88750/34/46297/25235/651fda7eF26a90548/068476588d793048.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>导出magiskboot</center>
+
+<p>再输入命令：adb reboot bootloader<br>板子会重启到fastboot模式，然后输入命令：fastboot flash boot后再按个空格键，接着把电脑上magiskboot.img拖到这里，会自动生成文件路径名</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/108877/25/45607/33522/651fda52F2914def0/40a73edaafb35f36.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>刷入修补后的boot</center>
+
+<p>再按回车等待几秒完成后输入命令：<br>fastboot reboot<br>板子重启后打开magisk（可能得多等会），看到下面四个图标，第二个就是超级用户，那么root就完成了。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/182343/29/39633/13611/651fdaceFdb9cb3c1/7d27d3f50a7b72df.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>获得root权限</center>
+
+<p>下面是备份qcn的工作，依然在ARDC的&gt;&gt;这里的cmd后输入命令：adb shell su，然后会显示shell申请权限，点永久就行了，接着在magisk的超级用户里看看shell授权成功与否</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/164692/35/41807/9125/651fda56F0d492a82/ea80475914f73a63.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>shell授权</center>
+
+<p>关掉ARDC，同时在任务管理器里如果发现adb还在后台也要关掉。然后打开星海svip这个软件（免安装），如果打开时提示缺少库文件，安装我提供的微软软件包，装好后最好重启一下电脑就能打开星海了，以后如果操作没问题，这个软件还是报错的就重启电脑。<br>选择高通，再点联机会出现设备信息，找到高通强开1，点一键执行，在设备管理器上查看是否有端口901D（如果开启失败可以尝试手动开启，文件夹里有命令代码）</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/99554/39/43421/101295/651fdb1cF3a21dd38/ac3c57ac5417364d.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center>强开端口901D </center>
+
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/184084/14/39924/23457/651fdaeaFcfacb18d/6f2f5c4b19878685.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center> 成功开启端口901D</center>
+
+<p>接着备份qcn，一键执行，选择qcn文件生成路径，正常情况就能备份qcn成功，如果不行就检查901d端口或者重启电脑，备份的qcn一般在500多k，远小于这个大小的应该是备份失败了，建议再来一次。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/171952/3/42066/58157/651fdb02Ff35a2d4e/a5c6db4425c11ed0.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<center> 备份qcn</center>
+
+<h2 id="刷入Debian系统"><a href="#刷入Debian系统" class="headerlink" title="刷入Debian系统"></a>刷入Debian系统</h2><h3 id="拆开棒子看板号"><a href="#拆开棒子看板号" class="headerlink" title="拆开棒子看板号"></a>拆开棒子看板号</h3><p>1.随身WiFi型号是ufi003，寻找对应刷机资源</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/196646/27/39484/3844327/651fdb2aF5cabe5c8/ef8d2602232fb096.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<h3 id="刷入Debian"><a href="#刷入Debian" class="headerlink" title="刷入Debian"></a>刷入Debian</h3><p>1.安卓下重启到fastboot，将备份的基带fsc.bin、fsg.bin、modemst1.bin、modemst2.bin替换掉刷Debian系统文件夹里的文件</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/192256/1/39332/177929/651fdb1eF151a5ab2/3406a69f13caccc5.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>2.双击一键刷入，按提示刷入即可</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/182722/31/39132/120169/651fdb1cF68579bb3/c58e77dc074d204c.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>3.刷入成功后重启，看Windows托盘会变为HandsomeMod</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/104560/25/37448/10159/651fdb1aFeb955d92/ae160e27d0db5c48.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>4.设备管理器里应有 基于远程的NDIS的Internet的共享设备</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/217618/30/35041/292275/651fdb4eFa2e491a2/c4090763c71dd708.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>5.没有的话在其它设备-未知设备里找到它并更新为基于远程的NDIS的Internet的共享设备</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/84416/28/28391/25247/651fdb4eF17c6c2e4/80bc10774ddeb461.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>6.未知设备里也没有的话，按下方步骤</p>
+<p>1，进设备管理器，ADB右键，更新驱动，选择从计算机列表中选取，选择Composite USB Device。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/89289/6/37469/35306/651fdb4fF36502be4/d3fbd3747f119655.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>2，重新插入设备，设备管理器出现一个未知的设备，右键更新驱动，从计算机列表选取，选网络适配器，取消打勾，选Microsoft，再选基于远程NDIS的internet共享设备。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t20251005/199412/4/36234/52824/651fdb5cF4a425256/35a7284b67745e20.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>3.插入SIM卡重启，等待两分钟左右看随身WiFi是否可以提供网络给电脑，可以的话说明已经可以使用SIM卡上网了</p>
+<p>4.若还是不读卡（即没有网络），可执行一下命令，若成功联网，则把下方命令放入/etc/rc.local中让其自启</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sleep</span> <span class="hljs-number">3</span><br><span class="hljs-attribute">systemctl</span> stop ModemManager<br><span class="hljs-attribute">sleep</span> <span class="hljs-number">3</span><br><span class="hljs-attribute">qmicli</span> -d /dev/wwan0qmi0 --uim-sim-power-<span class="hljs-literal">off</span>=<span class="hljs-number">1</span><br><span class="hljs-attribute">sleep</span> <span class="hljs-number">3</span><br><span class="hljs-attribute">qmicli</span> -d /dev/wwan0qmi0 --uim-sim-power-<span class="hljs-literal">on</span>=<span class="hljs-number">1</span><br><span class="hljs-attribute">sleep</span> <span class="hljs-number">3</span><br><span class="hljs-attribute">systemctl</span> start ModemManager<br><span class="hljs-attribute">sleep</span> <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
+<p>5.debian下关闭led的方法，把下方命令放入/etc/rc.local中让其自启</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">echo none &gt; /sys/<span class="hljs-keyword">class</span>/<span class="hljs-symbol">leds</span>/<span class="hljs-symbol">red</span>\:<span class="hljs-symbol">os</span>/<span class="hljs-symbol">trigger</span><br><span class="hljs-symbol">echo</span> <span class="hljs-symbol">none</span> &gt; /<span class="hljs-symbol">sys</span>/<span class="hljs-symbol">class</span>/<span class="hljs-symbol">leds</span>/<span class="hljs-symbol">blue</span>\:<span class="hljs-symbol">wifi</span>/<span class="hljs-symbol">trigger</span><br><span class="hljs-symbol">echo</span> <span class="hljs-symbol">none</span> &gt; /<span class="hljs-symbol">sys</span>/<span class="hljs-symbol">class</span>/<span class="hljs-symbol">leds</span>/<span class="hljs-symbol">green</span>\:<span class="hljs-symbol">internet</span>/<span class="hljs-symbol">trigger</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" class="category-chain-item">实用技巧</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/WIFI/">#WIFI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>随身WIFI刷Debian系统</div>
+      <div>https://couurh.github.io/posts/fdc3c2c1.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Couurh</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>October 15, 2022</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/7496bb98.html" title="考试系统-SurveyKing">
+                        <span class="hidden-mobile">考试系统-SurveyKing</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"9W8AmWB2IIaq4HLHtAvSSDjE-gzGzoHsz","appKey":"BQF3DILiuFvGwQlvNV9oUkQF","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

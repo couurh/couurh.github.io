@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://kjimg10.360buyimg.com/ott/jfs/t1/114690/31/31803/20186/63f05d9fFc7a98edb/735a5a4c4ec2a38c.png">
+  <link rel="icon" href="https://kjimg10.360buyimg.com/ott/jfs/t1/114690/31/31803/20186/63f05d9fFc7a98edb/735a5a4c4ec2a38c.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Couurh">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="青龙面板(Android)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地部署青龙面板">
+<meta property="og:url" content="https://couurh.github.io/posts/4979d1d8.html">
+<meta property="og:site_name" content="亦余Blog">
+<meta property="og:description" content="青龙面板(Android)">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kjimg10.360buyimg.com/ott/jfs/t1/186969/10/32401/63030/63f060d2Ff7db7aea/7708dd9ec537cf7b.png">
+<meta property="article:published_time" content="2021-11-20T01:40:00.000Z">
+<meta property="article:modified_time" content="2023-02-18T08:05:02.751Z">
+<meta property="article:author" content="Couurh">
+<meta property="article:tag" content="青龙面板">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kjimg10.360buyimg.com/ott/jfs/t1/186969/10/32401/63030/63f060d2Ff7db7aea/7708dd9ec537cf7b.png">
+  
+  
+  
+  <title>本地部署青龙面板 - 亦余Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"couurh.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="亦余Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>亦余Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://kjimg10.360buyimg.com/ott/jfs/t1/64792/33/23610/1162547/63f069c9F9f0c9040/0b3dd2822c117b41.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="本地部署青龙面板"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-11-20 09:40" pubdate>
+          November 20, 2021 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">本地部署青龙面板</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="前提条件："><a href="#前提条件：" class="headerlink" title="前提条件："></a>前提条件：</h3><ol>
+<li>已ROOT的安卓机，可以正常安装magisk模块</li>
+<li>抓cookie</li>
+</ol>
+<h3 id="开始部署："><a href="#开始部署：" class="headerlink" title="开始部署："></a>开始部署：</h3><ol>
+<li><p>下载青龙magisk模块并安装：</p>
+<p><a target="_blank" rel="noopener" href="https://imcockpit.lanzoul.com/iwdpZ012zqza">查看链接</a> （访问码：ef1c）</p>
+</li>
+<li><p>安装busybox模块，直接在magisk仓库搜索busybox for android ndk关键字安装即可或者在搞机助手magisk仓库安装（耐心等待安装完成）</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/55609/35/19119/49904/63f06061F5f02642a/5cc8c0c4ca63976a.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/91920/18/32542/172254/63f06066F0f828347/6c274c83f7f447ce.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+</li>
+<li><p>全部安装完，手机重启以后浏览器内直接访问127.0.0.1:5700即可看到青龙的页面。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/181089/27/32675/53760/63f060c4Fe9b8db42/6c7116fbefa3b1c5.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+</li>
+<li><p>第一次进入配置好账号密码以后进入青龙页面首先需要拉仓库，具体操作如下：</p>
+</li>
+</ol>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/99446/39/37210/79604/63f06110Ffb8f32f7/26cf64d98c3399c8.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/35260/1/20385/65194/63f060f0F2f44a80c/c2ef754b8b9513b1.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/96372/15/34743/82945/63f06065F5f838948/d4ed37edd39637a3.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<h3 id="获取京东cookie-PC端"><a href="#获取京东cookie-PC端" class="headerlink" title="获取京东cookie(PC端)"></a>获取京东cookie(PC端)</h3><p>使用chrome内核浏览器，打开开发者模式（F12），打开network标签，浏览器访问京东移动端登录地址m.jd.com，按照提示登录你的京东账号。复制下图所示内容。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/191445/37/32903/68035/63f060b5F62ee9516/67796fd22e7c4015.png" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p>注：这样复制出来的<code>cookie</code>比较长，只需要<code>pt_pin=xxxx;</code>和 <code>pt_key=xxxx;</code>部分的内容即可移动端同。</p>
+<p>然后打开青龙面板，选择环境变量-&gt;添加变量，名称为<code>JD_COOKIE</code>,值为刚复制的<code>COOKIE</code>，备注自己填，别的不需要动。添加后点确定就可以，如果需要添加多个账号，只需要获取多个<code>COOKIE</code>添加上去就可以了，名称仍然为<code>JD_COOKIE</code>。添加好京东账号之后就可以去执行脚本了。</p>
+<h3 id="获取京东cookie-移动端"><a href="#获取京东cookie-移动端" class="headerlink" title="获取京东cookie(移动端)"></a>获取京东cookie(移动端)</h3><p>使用<a target="_blank" rel="noopener" href="https://imcockpit.lanzoul.com/iY9qR0172ceh">Alook浏览器</a>，登陆京东后长按主页选择开发者工具，点击<code>Cookies</code>拷贝。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/114807/8/31540/28150/63f06134F8fbfa399/fb635aa43fb02607.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/78567/25/25890/43777/63f06135Fb2d709d6/dbf547bb102b0e50.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/34412/33/20775/28971/63f06133Fabaf1ace/6190c9428fa919d7.jpg" srcset="https://kjimg10.360buyimg.com/ott/jfs/t1/175963/14/33551/17142/63f08becF422ee60c/2841dfa40c578fec.gif" lazyload></p>
+<h3 id="Faker集合仓库"><a href="#Faker集合仓库" class="headerlink" title="Faker集合仓库"></a>Faker集合仓库</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">ql repo https:<span class="hljs-regexp">//g</span>hproxy.com<span class="hljs-regexp">/https:/</span><span class="hljs-regexp">/github.com/</span>shufflewzc/faker2.git <span class="hljs-string">&quot;jd_|jx_|getJDCookie&quot;</span> <span class="hljs-string">&quot;activity|backUp&quot;</span> <span class="hljs-string">&quot;^jd[^_]|USER|ZooFaker_Necklace&quot;</span><br>ql repo https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/okyyds/yy</span>dspure.git <span class="hljs-string">&quot;jd_|jx_|gua_|jddj_|jdCookie&quot;</span> <span class="hljs-string">&quot;activity|backUp&quot;</span> <span class="hljs-string">&quot;^jd[^_]|USER|function|utils|sendNotify|ZooFaker_Necklace.js|JDJRValidator_|sign_graphics_validate|ql|JDSignValidator&quot;</span> <span class="hljs-string">&quot;master&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p>Q:青龙有时候更新就进不了面板</p>
+<p>A:再执行一遍更新命令</p>
+<p>Q:如何获取助力码？</p>
+<p>A:先登录需要助力的账号，手动将配置文件内出现名字的脚本运行一遍，然后运行互助码脚本。</p>
+<p>Q：更新/jd/scripts失败，请检查原因…</p>
+<p>A: 网络卡，等会再试试，或者加国内代理头</p>
+<p>Q：argument list too long</p>
+<p>A:   ck太多，建议保持在45左右。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" class="category-chain-item">实用技巧</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF/">#青龙面板</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>本地部署青龙面板</div>
+      <div>https://couurh.github.io/posts/4979d1d8.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Couurh</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>November 20, 2021</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/c3d289b5.html" title="易统计自动打卡">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">易统计自动打卡</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/c598a983.html" title="Auto.js实现滑动验证码">
+                        <span class="hidden-mobile">Auto.js实现滑动验证码</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"9W8AmWB2IIaq4HLHtAvSSDjE-gzGzoHsz","appKey":"BQF3DILiuFvGwQlvNV9oUkQF","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
